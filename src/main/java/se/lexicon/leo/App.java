@@ -1,5 +1,7 @@
 package se.lexicon.leo;
 
+import se.lexicon.leo.db.MyConnection;
+
 import java.sql.*;
 
 /**
@@ -27,7 +29,7 @@ public class App {
         String findByName ="SELECT*FROM app_user WHERE user_name = ?";
 
         try {
-            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            Connection connection = MyConnection.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(findByName);
 
             preparedStatement.setString(1, username);
@@ -51,7 +53,7 @@ public class App {
     public static void findAll() {
         try {
 
-            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            Connection connection = MyConnection.getInstance().getConnection();
             Statement statement = connection.createStatement();
 
             String findAll = "SELECT*FROM books";
